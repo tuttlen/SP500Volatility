@@ -48,7 +48,7 @@ plot(volest,type="l")
 
 # TODO: Add connected line segments for volest2 with the parameters: type="l",col="red"
 # hint: look at oilExerciseCode.R file at the live discussion
-[Fill In]
+lines(volest2, col="red", type="l")
 
 # TODO: Add connected line segments for volest3 with the parameters: type="l",col="blue"
-[Fill In]
+lines(volest3, col="blue", type="l")
