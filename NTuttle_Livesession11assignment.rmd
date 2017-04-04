@@ -17,10 +17,52 @@ knitr::opts_chunk$set(echo = TRUE)
 # Nathan Tuttle (47243733)
 Submit a HTML or WORD file with the github link that contains codes and markdown document, which shows the result. I will look through your HTML/Word file to check out the code and its result. Then, I will check out github link to see if you have a code(s) and markdown document
 
-
+Link to GitHub page
 https://github.com/tuttlen/SP500Volatility.git
+
+Link to RMarkdown
+https://github.com/tuttlen/SP500Volatility/blob/master/NTuttle_Livesession11assignment.rmd
 
 
 ```{r volatility}
 source("SP500.r")
+
+## S&P 500 (^GSPC)
+###    SNP - SNP Real Time Price. Currency in USD
+
+# TODO: Download the data of SP500 '^gspc'.
+SNPdata <- get.hist.quote("^GSPC",quote="Close")
+
+# TODO: Calculate the log returns, which is the subtractration of log(lag(SNPdata)) and log(SNPdata)
+SNPret <- log(lag(SNPdata)) - log(SNPdata)
+
+# TODO: Calculate volatility measure that is to multiply sd(SNPret),sqrt(250), 100
+SNPvol <- sd(SNPret)*sqrt(250)*100
+
+
+# Calculate volatility over entire length of series for various three different decay factors: 10 30. 100
+
+# TODO: call getVol function with the parameters: 10,SNPret
+volest <- getVol(10,SNPret)
+
+# TODO: call getVol function with the parameters: 30,SNPret
+volest2 <- getVol(30,SNPret)
+
+# TODO: call getVol function with the parameters: 100,SNPret
+volest3 <- getVol(100,SNPret)
+
+# Plot the results, overlaying the volatility curves on the data, just as was done in the S&P example.
+plot(volest,type="l")
+
+# TODO: Add connected line segments for volest2 with the parameters: type="l",col="red"
+# hint: look at oilExerciseCode.R file at the live discussion
+lines(volest2, col="red", type="l")
+
+# TODO: Add connected line segments for volest3 with the parameters: type="l",col="blue"
+lines(volest3, col="blue", type="l")
 ```
+
+# Discussion
+In the above plot we see that with 20 degrees of decay there is very little deviation. However, for decay of 30
+the blue line leads the index.
+
